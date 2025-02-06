@@ -1,3 +1,6 @@
+//formula for encrypting with caesar C(i)=(P(i)+K)MOD26
+//formula for unencrypting with caesar P(i)=(C(i)-K+26)MOD26
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
