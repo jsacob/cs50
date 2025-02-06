@@ -3,65 +3,48 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-int get_key() {
-    int key;
-    char term;
-    printf("key: ");
-    
-    while (scanf("%d%c", &key, &term) != 2 || term != '\n') {
-        while (getchar() != '\n'); 
-        printf("key must be a number\n");
-        printf("key: ");
+int get_key(int argc, char *argv[]) {
+    if (argc != 2) {
+        printf("Usage: ./caesar key\n");
+        exit(1); 
     }
-    // printf("%d\n", key);
-    return key; 
+
+   
+    int key = atoi(argv[1]);
+    if (key < 0 || key > 25) {  
+        printf("key must be between 0 and 25\n");
+        exit(1); 
+    }
+    return key;
 }
 
 char* get_word() {
-    printf("word: ");
+    printf("plaintext: ");
     char *user_input = malloc(50 * sizeof(char));
-    if(user_input == NULL){
+    if (user_input == NULL) {
         printf("Memory allocation failed\n");
+        exit(1); 
     }
-    while (fgets(user_input, 50, stdin) != NULL) {
-        int i = 0;
-        if (!isalpha(user_input[i])) {
-            printf("all characters must be letters: ");
-            continue;
-        } else {
-            // printf("%s", user_input);
-            break;
-        }
-        i++;
-    }
+    fgets(user_input, 50, stdin);
+    user_input[strcspn(user_input, "\n")] = '\0'; 
     return user_input;
 }
 
-int main() {
-    char *s = "abcdefghijklmnopqrstuvwxyz";
-    char arr[27];
-    strcpy(arr, s);
-    int key = get_key();
-    char *word = get_word();
-    // char *reverse_word = get_word();
+int main(int argc, char *argv[]) {
+    int key = get_key(argc, argv);  
+    char *word = get_word();        
 
-    int char_count = 0;
-    for (int i = 0; i < strlen(word); i++){
-            //encrypting message
-            int index = word[i] - 'a';
-            int new_index = (index + key) %26; //formula C(i)=(P(i)+k)mod26
-            word[i] = arr[new_index]; 
+    // Encryption logic
+    for (int i = 0; i < strlen(word); i++) {
+        if (isalpha(word[i])) {
+            char base = isupper(word[i]) ? 'A' : 'a';
+            int index = word[i] - base;
+            int new_index = (index + key) % 26;
+            word[i] = base + new_index;
+        }
     }
-//     for(int i = 0; i < strlen(reverse_word); i++){
-//         if(isalpha(word[i])){
-//             char_count++;
-//             //unecrypting message
-//             int reverse_index = reverse_word[i] - 'a';
-//             int old_index = (reverse_index - key + 26) %26; //formula P(i)=(C(i)-k+26)%26
-//             reverse_word[i] = arr[old_index];
-//     }
-// }
-    printf("after shift: %s\n", word);
-    // printf("revese shift: %s\n", reverse_word); 
+
+   
+    printf("ciphertext: %s\n", word);  
     return 0;
 }
