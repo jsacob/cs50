@@ -22,7 +22,6 @@ int get_key(int argc, char *argv[]) {
 }
 
 char* get_word() {
-    printf("plaintext: ");
     char *user_input = malloc(50 * sizeof(char));
     if (user_input == NULL) {
         printf("Memory allocation failed\n");
@@ -35,7 +34,10 @@ char* get_word() {
 
 int main(int argc, char *argv[]) {
     int key = get_key(argc, argv);  
-    char *word = get_word();        
+    printf("plaintext: ");
+    char *word = get_word();  
+    printf("deciphertext: ");
+    char *reverse_word = get_word();      
 
     // Encryption logic
     for (int i = 0; i < strlen(word); i++) {
@@ -47,7 +49,16 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    for (int i = 0; i < strlen(reverse_word); i++){
+        if (isalpha(reverse_word[i])) {
+            char base = isupper(reverse_word[i]) ? 'A' : 'a';
+            int index = reverse_word[i] - base;
+            int old_index = (index - key + 26) % 26;
+            reverse_word[i] = base + old_index;
+        }
+    }
    
     printf("ciphertext: %s\n", word);  
+    printf("deciphertext: %s\n", reverse_word);
     return 0;
 }
