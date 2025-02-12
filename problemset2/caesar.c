@@ -14,7 +14,7 @@ int get_key(int argc, char *argv[]) {
 
    
     int key = atoi(argv[1]);
-    if (key < 0 || key > 25) {  
+    if (key < 0 || key > 100) {  
         printf("key must be between 0 and 25\n");
         exit(1); 
     }

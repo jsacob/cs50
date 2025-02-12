@@ -1,0 +1,22 @@
+How can i reason which algoritm is which with runtime cases. 
+
+
+**this file has nothing to do with the time it takes to run, for a lack of better term deciding what cases to run on each algorithm and why.
+
+just realised that running on sorted wont work or return a case verifiable case instead it just runs through the dataset. 
+
+Selection Sorting 
+
+- best case running on sorted 5000 
+- worst case running on random sorted 50000 
+
+Bubble Sorting
+
+s
+
+
+
+
+
+
+Merege Sorting
