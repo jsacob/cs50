@@ -1,0 +1,1 @@
+clang -o runoff runoff.c -I /nix/store/6fp3c0n4sq51j41ynks0q8znsc2xp9v6-libcs50-11.0.3/include -L /nix/store/6fp3c0n4sq51j41ynks0q8znsc2xp9v6-libcs50-11.0.3/lib -lcs50
